@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mood Prism</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="app-pill">Mood Prism</p>
+        <h1>Understand your emotional tone through color &amp; rhythm</h1>
+        <p class="hero-copy">
+          Upload a selfie or any moment. We will stream the image to ChatGPT for a
+          gentle emotional read, then translate the mood into color gradients and digestible
+          insight cards.
+        </p>
+      </header>
+
+      <section class="card upload-card">
+        <div class="input-stack">
+          <label class="field-label" for="apiKey">OpenAI API key</label>
+          <div class="api-field">
+            <input
+              id="apiKey"
+              type="password"
+              placeholder="sk-..."
+              autocomplete="off"
+            />
+            <button id="toggleKey" class="ghost-btn" type="button" aria-label="Show key">
+              Show
+            </button>
+          </div>
+        </div>
+
+        <div class="input-stack">
+          <label class="field-label">Upload a photo</label>
+          <label class="dropzone" for="photoInput">
+            <input id="photoInput" type="file" accept="image/*" />
+            <div class="dropzone-inner">
+              <div class="drop-icon">+</div>
+              <p>Tap to choose or drag a photo here</p>
+              <small>Tap or drop a photo. We never store your image; it is sent directly to OpenAI.</small>
+            </div>
+          </label>
+          <div class="preview" id="previewWrapper" hidden>
+            <img id="previewImage" alt="Uploaded preview" />
+            <button class="ghost-btn" id="clearImage" type="button">Remove</button>
+          </div>
+        </div>
+
+        <button id="analyzeBtn" class="primary-btn" type="button">
+          Analyze emotion
+        </button>
+
+        <p class="helper-text">
+          Mood Prism prompts GPT-4o mini to respond with structured insights. Keep texts or faces
+          within the frame for clearer reads.
+        </p>
+      </section>
+
+      <section class="card results-card hidden" id="resultsCard">
+        <div class="mood-header">
+          <div class="mood-chip" id="dominantEmotion">Awaiting upload</div>
+          <div class="confidence" id="confidenceLabel"></div>
+        </div>
+
+        <div class="color-palette" id="colorPalette">
+          <div class="swatch" data-role="primary">
+            <span class="swatch-dot"></span>
+            <p>
+              <strong>Primary</strong>
+              <span class="hex">-</span>
+            </p>
+          </div>
+          <div class="swatch" data-role="secondary">
+            <span class="swatch-dot"></span>
+            <p>
+              <strong>Secondary</strong>
+              <span class="hex">-</span>
+            </p>
+          </div>
+          <div class="swatch" data-role="accent">
+            <span class="swatch-dot"></span>
+            <p>
+              <strong>Accent</strong>
+              <span class="hex">-</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="chart-block">
+          <h2>Emotion spectrum</h2>
+          <div class="bars" id="emotionBars"></div>
+        </div>
+
+        <div class="insight-block">
+          <h2>Insights</h2>
+          <p id="summaryText" class="summary"></p>
+          <ul id="signalList"></ul>
+        </div>
+
+        <div class="insight-block">
+          <h2>Suggested micro-actions</h2>
+          <ul id="actionsList"></ul>
+        </div>
+      </section>
+    </main>
+
+    <template id="barTemplate">
+      <div class="bar">
+        <div class="bar-label">
+          <span class="label-text"></span>
+          <span class="value-text"></span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="listItemTemplate">
+      <li>
+        <span></span>
+      </li>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
