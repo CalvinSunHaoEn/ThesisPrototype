@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Emotion Mirror</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1>Emotion Mirror</h1>
+        <p class="app__subtitle">
+          Upload text, photos, videos, or audio from your iPhone and feel the emotional reflection.
+        </p>
+      </header>
+
+      <nav class="input-tabs" aria-label="Input type selector">
+        <button class="tab-button active" data-target="text-form">Text</button>
+        <button class="tab-button" data-target="photo-form">Photo</button>
+        <button class="tab-button" data-target="video-form">Video</button>
+        <button class="tab-button" data-target="audio-form">Audio</button>
+      </nav>
+
+      <section class="forms">
+        <form id="text-form" class="form active" autocomplete="off">
+          <label for="text-input">Share your thoughts</label>
+          <textarea id="text-input" name="text" rows="5" placeholder="Type a message, journal entry, or story..." required></textarea>
+          <button type="submit" class="primary">Analyze Emotion</button>
+        </form>
+
+        <form id="photo-form" class="form" data-type="photo" autocomplete="off">
+          <label for="photo-input">Choose a photo</label>
+          <input id="photo-input" type="file" name="media" accept="image/*" capture="environment" required />
+          <label for="photo-description">Optional context</label>
+          <input id="photo-description" type="text" name="description" placeholder="Describe the moment" />
+          <button type="submit" class="primary">Analyze Photo Emotion</button>
+        </form>
+
+        <form id="video-form" class="form" data-type="video" autocomplete="off">
+          <label for="video-input">Choose a video</label>
+          <input id="video-input" type="file" name="media" accept="video/*" capture="environment" required />
+          <label for="video-description">Optional context</label>
+          <input id="video-description" type="text" name="description" placeholder="Describe the scene" />
+          <button type="submit" class="primary">Analyze Video Emotion</button>
+        </form>
+
+        <form id="audio-form" class="form" data-type="audio" autocomplete="off">
+          <label for="audio-input">Choose an audio clip</label>
+          <input id="audio-input" type="file" name="media" accept="audio/*" capture="microphone" required />
+          <label for="audio-description">Optional context</label>
+          <input id="audio-description" type="text" name="description" placeholder="Describe the sound" />
+          <button type="submit" class="primary">Analyze Audio Emotion</button>
+        </form>
+      </section>
+
+      <section id="loading-state" class="loading" hidden>
+        <div class="loading__spinner"></div>
+        <p>Analyzing your emotion...</p>
+      </section>
+
+      <section id="result-card" class="result" hidden aria-live="polite">
+        <div class="result__visual">
+          <canvas id="emotion-visual" width="220" height="220" aria-hidden="true"></canvas>
+          <span id="emotion-emoji" class="result__emoji">😊</span>
+        </div>
+        <div class="result__details">
+          <h2 id="emotion-name">Calm</h2>
+          <p id="emotion-summary">We detected a calm, neutral tone.</p>
+          <button id="reset-button" class="secondary">Try Again</button>
+        </div>
+      </section>
+
+      <footer class="app__footer">
+        <small>Prototype powered by OpenAI · Designed for iPhone Safari</small>
+      </footer>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
