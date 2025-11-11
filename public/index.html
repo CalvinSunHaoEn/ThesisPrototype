@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emotion Canvas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js" defer></script>
+    <script src="app.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <h1>Emotion Canvas</h1>
+        <p>Upload a selfie to transform feelings into color and insight.</p>
+      </header>
+
+      <main>
+        <section class="card upload-card">
+          <div class="upload-preview" id="uploadPreview">
+            <span class="placeholder-text">Tap to add a photo</span>
+          </div>
+          <label for="photoInput" class="upload-button">選擇照片</label>
+          <input type="file" id="photoInput" accept="image/*" capture="environment" hidden />
+          <div class="action-buttons">
+            <button id="analyzeButton" class="primary" disabled type="button">開始分析</button>
+            <button id="demoButton" class="ghost" type="button">先看示範</button>
+          </div>
+          <p class="helper-text">系統將使用 ChatGPT 模型分析情緒。照片僅用於即時分析，不會保存。若沒有 API 金鑰，可先點示範體驗成品。</p>
+        </section>
+
+        <section class="card results" id="results" hidden>
+          <div class="emotion-chip" id="dominantEmotion"></div>
+          <p class="summary" id="summary"></p>
+
+          <div class="intensity">
+            <h2>情緒強度</h2>
+            <div class="intensity-meter">
+              <div class="meter-bar">
+                <div class="meter-fill" id="intensityFill"></div>
+              </div>
+              <span id="intensityLabel"></span>
+            </div>
+            <p class="intensity-description" id="intensityDescription"></p>
+          </div>
+
+          <div class="spectrum">
+            <h2>情緒光譜</h2>
+            <canvas id="spectrumChart" aria-label="Emotional spectrum chart"></canvas>
+            <ul class="spectrum-list" id="spectrumList"></ul>
+          </div>
+
+          <div class="palette">
+            <h2>情緒色彩</h2>
+            <div class="color-palette" id="colorPalette"></div>
+          </div>
+
+          <div class="recommendations" id="recommendations" hidden>
+            <h2>舒緩建議</h2>
+            <ul id="recommendationList"></ul>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <small>由 OpenAI GPT 模型驅動的情緒洞察原型。</small>
+      </footer>
+
+      <div class="loading-overlay" id="loadingOverlay" hidden>
+        <div class="loader"></div>
+        <p>正在感知情緒...</p>
+      </div>
+    </div>
+  </body>
+</html>
